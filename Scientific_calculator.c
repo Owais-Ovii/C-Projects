@@ -143,19 +143,21 @@ int main() {
         
     switch(mode){
         case 1:
-        
-    printf("\n Operations:\n+ - addition\n/ - division\n- - subtraction\n* - multiplication\n^ - exponentiation\n| - titration\n");
     
     printf("Input operand:\n");
     scanf(" %lf",&o1);
+        
+    printf("\n Operations:\n+ - addition\n/ - division\n- - subtraction\n* - multiplication\n^ - exponentiation\n| - titration\n");
     
-    printf("Input operation\n");
+
+    
+    printf("Input operation: +, -, *, /, ^, |\n");
     scanf(" %c",&opera);
     
     
     while(opera!='='){
 
-    printf("\n %lf %c ",o1,opera);
+    printf("\n%lf %c :",o1,opera);
     scanf("%lf",&o2);
     
     switch(opera){
@@ -190,19 +192,25 @@ int main() {
         printf("Enter valid operation");
 
     }
-        printf("Input operation\n");
+        printf("%lf\n",o1);
+        printf("Input operation: +, -, *, /, ^, | or = : \n");
         scanf(" %c",&opera);
     
     
     }
     
     printf("%lf",o1);
+    break;
     
     case 2:
-        printf("\n Operations:\nc - Conversion to decimal\n+ - addition\n- - subtraction\n* - multiplication\n^ - exponentiation\n| - titration\n");
     
-        printf("Enter a Binary number:\n");
+        
+        printf("\nEnter a Binary number:\n");
         scanf("%s",a);
+        
+        
+        printf("\n Operations:\nc - Conversion to decimal\n+ - addition\n- - subtraction\n* - multiplication\n^ - exponentiation\n| - titration\n");
+
     
         printf("Input operation: c, +, -, \n");
         scanf(" %c",&opera);
@@ -225,6 +233,7 @@ int main() {
         printf("Enter valid operation");
 
     }
+//to display output the code is to written indivisually
         printf("Input operation\n");
         scanf(" %c",&opera);
     
@@ -232,6 +241,7 @@ int main() {
     }
     
     printf("%lf",o1);
+    break;
 
 case 3:    
           //List of all avalible Operations for Matricies
@@ -376,7 +386,7 @@ printf(" |");}
     }
     
     printf("%lf",o1);
-
+break;
 
 
 
