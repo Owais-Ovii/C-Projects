@@ -134,6 +134,8 @@ int main() {
     int mode;
     double o1,o2;
     char opera='a',a[100];
+    char bin2[100];
+    int posi;
     
   //  printf("\nEnter operand:\n");
 //    scanf("%lf",o1);
@@ -203,12 +205,14 @@ int main() {
     break;
     
     case 2:
-    
         
+
+
         printf("\nEnter a Binary number:\n");
         scanf("%s",a);
-        
-        
+        printf("\nIs %s to be treated as positive(1) or negative(0), Enter 1 or 0: ",a);
+        scanf("%d",&posi);
+        o1= btd(posi,a);
         printf("\n Operations:\nc - Conversion to decimal\n+ - addition\n- - subtraction\n* - multiplication\n^ - exponentiation\n| - titration\n");
 
     
@@ -223,18 +227,34 @@ int main() {
     switch(opera){
 
         case 'c':
-        printf("\nIs %s to be treated as positive(1) or negative(0), Enter 1 or 0: ");
-        int posi;
-        scanf("%d",&posi);
-        o1= btd(posi,a);
+
+
+        printf("%d\n",(int)o1);
         break;
-     
+        
+        case '+':
+        printf("\nEnter next Binary operand:\n");
+        scanf("%s",bin2);
+        
+        printf("\nIs %s to be treated as positive(1) or negative(0), Enter 1 or 0: ",bin2);
+        scanf("%d",&posi);
+        o2=btd(posi,bin2);
+        
+        o1+=o2;
+        
+        printf("%lf\n",o1);
+        break;
+        
         default :
         printf("Enter valid operation");
+        break;
 
     }
 //to display output the code is to written indivisually
-        printf("Input operation\n");
+        
+        printf("\n%s %c %s: ",a,opera,bin2);// the string here dosent change so well 
+        printf("%lf\n",o1);
+        printf("Input Next operation\n");
         scanf(" %c",&opera);
     
     
