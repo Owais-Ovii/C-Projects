@@ -129,12 +129,106 @@ return sm;
 }
 /* ******************************* */
 
+/* 
+Function to display a 1d int array 
+********************************** */
+void dis1diarr(int size,int matrix[])
+{
+
+for(int l =0 ; l<size;l++){
+
+printf("%d",matrix[l]);
+   
+}
+}
+/* ***************************** */
+
+
+/*
+FnTo convert any decimal number into 32bit binary
+******************************************* */
+
+
+int dtb(int decimal, int binary[32])// a decimal input and the array in which the binary would be returned
+{
+    
+    int posi=0,remaindar,number,i=0;
+    if(decimal>0)
+    {
+        
+        posi=1;
+        number=decimal;
+        
+    }
+    else
+    {
+        
+        number=-decimal;
+        number-=1;
+        
+    }
+    
+for(int i =0;i<32;i++)
+{
+    
+    binary[i]=-2147483648;
+    
+}
+
+
+    while(number!=0)
+    {
+        
+        remaindar=number%2;
+        binary[i]=remaindar;
+        number=(int) number/2;
+        
+        
+        i++;
+    }
+    
+
+
+//Now reversing the array
+int temp;
+for(int j=0;j<16;j++)
+{
+    
+    temp=binary[31-j];
+    binary[31-j]=binary[j];
+    binary[j]=temp;
+    
+}
+
+for(int j=0;binary[j]==-2147483648;j++)
+{
+    
+    binary[j]=0;
+    
+}
+
+if(posi==0)
+{
+    
+    for(int i=0;i<32;i++)
+    {
+        
+        binary[i]=!binary[i];
+        
+    }
+    
+}
+
+
+}
+/* **************************************** */
+
 
 int main() {
     int mode;
     double o1,o2;
-    char opera='a',a[100];
-    char bin2[100];
+    char opera='a',a[32];
+    char bin2[32];
     int posi;
     
   //  printf("\nEnter operand:\n");
@@ -219,6 +313,7 @@ int main() {
         printf("Input operation: c, +, -, \n");
         scanf(" %c",&opera);
     
+    int output[32];
     
     while(opera!='='){
 
@@ -227,22 +322,20 @@ int main() {
     switch(opera){
 
         case 'c':
-
-
-        printf("%d\n",(int)o1);
+        bin2[0]='\0';
+        //printf("%d\n",(int)o1);
         break;
         
         case '+':
-        printf("\nEnter next Binary operand:\n");
         scanf("%s",bin2);
         
-        printf("\nIs %s to be treated as positive(1) or negative(0), Enter 1 or 0: ",bin2);
+        printf("Is %s to be treated as positive(1) or negative(0), Enter 1 or 0: ",bin2);
         scanf("%d",&posi);
         o2=btd(posi,bin2);
         
         o1+=o2;
+        dtb(o1,output);
         
-        printf("%lf\n",o1);
         break;
         
         default :
@@ -250,11 +343,11 @@ int main() {
         break;
 
     }
-//to display output the code is to written indivisually
+
         
-        printf("\n%s %c %s: ",a,opera,bin2);// the string here dosent change so well 
-        printf("%lf\n",o1);
-        printf("Input Next operation\n");
+        printf("\n%s %c %s: ",a,opera,bin2);
+        dis1diarr(32,output);
+        printf("\nInput Next operation\n");
         scanf(" %c",&opera);
     
     
