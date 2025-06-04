@@ -20,6 +20,8 @@ double div(double o1,double o2){
     return o1/o2;
     
 }
+
+
 /* ******************************
 Fn Power fn
 */
@@ -47,6 +49,7 @@ double pwer(double base,int power)
 return out;    
 }
 /* *********** */
+
 
 /*
 Fn to convert any binary number into decimal reqs power fn
@@ -196,49 +199,28 @@ int main() {
     printf("%lf",o1);
     
     case 2:
-        printf("\n Operations:\nc - Conversion to decimal\n/ - division\n- - subtraction\n* - multiplication\n^ - exponentiation\n| - titration\n");
+        printf("\n Operations:\nc - Conversion to decimal\n+ - addition\n- - subtraction\n* - multiplication\n^ - exponentiation\n| - titration\n");
     
         printf("Enter a Binary number:\n");
         scanf("%s",a);
     
-        printf("Input operation\n");
+        printf("Input operation: c, +, -, \n");
         scanf(" %c",&opera);
     
     
     while(opera!='='){
 
         printf("\n %s %c ",a,opera);
-        scanf("%lf",&o2);
     
     switch(opera){
 
         case 'c':
-        o1= btd(a);
+        printf("\nIs %s to be treated as positive(1) or negative(0), Enter 1 or 0: ");
+        int posi;
+        scanf("%d",&posi);
+        o1= btd(posi,a);
         break;
-        
-      /*  case '-':
-        o1= subt(o1,o2);
-        break;
-        
-        case '*':
-        o1= mul(o1,o2);
-        break;
-        
-        case '/':
-        o1= div(o1,o2);
-        break;
-        
-        case '^':
-        o1= pwer(o1,o2);
-        break;
-        
-        case '|':
-        o1= tetr(o1,o2);
-        break;  */
-        
-
-
-        
+     
         default :
         printf("Enter valid operation");
 
@@ -381,30 +363,6 @@ printf(" |");}
 }printf("\n");}
 //    
     switch(opera){
-
-        
-        
-      /*  case '-':
-        o1= subt(o1,o2);
-        break;
-        
-        case '*':
-        o1= mul(o1,o2);
-        break;
-        
-        case '/':
-        o1= div(o1,o2);
-        break;
-        
-        case '^':
-        o1= pwer(o1,o2);
-        break;
-        
-        case '|':
-        o1= tetr(o1,o2);
-        break;  */
-        
-
 
         
         default :
