@@ -223,12 +223,40 @@ if(posi==0)
 }
 /* **************************************** */
 
+/*
+Fn to input a 1d int array into a 1d char array
+*********************************************** */
+
+void swap1dinttochar(int size,int imatrix[size],char carray[size])
+{
+    char temp;
+    for(int i =0;i<size;i++)
+    {
+        if(imatrix[i]==1)
+        {
+            
+        carray[i]='1';    
+            
+        }
+        else
+        {
+            
+            carray[i]='0';
+            
+        }
+        
+        
+    }
+    
+}
+
+/* ******************************************** */
+
 
 int main() {
     int mode;
     double o1,o2;
-    char opera='a',a[32];
-    char bin2[32];
+    char opera='a',bin1[32],bin2[32];
     int posi;
     
   //  printf("\nEnter operand:\n");
@@ -303,27 +331,32 @@ int main() {
 
 
         printf("\nEnter a Binary number:\n");
-        scanf("%s",a);
-        printf("\nIs %s to be treated as positive(1) or negative(0), Enter 1 or 0: ",a);
+        scanf("%s",bin1);
+        
+        printf("\nIs %s to be treated as positive(1) or negative(0), Enter 1 or 0: ",bin1);
         scanf("%d",&posi);
-        o1= btd(posi,a);
-        printf("\n Operations:\nc - Conversion to decimal\n+ - addition\n- - subtraction\n* - multiplication\n^ - exponentiation\n| - titration\n");
+        o1= btd(posi,bin1);
+        
+        printf("\n Operations:\nc - Conversion to decimal\n+ - Binary addition\n- - Binary subtraction\n* - Binary multiplication\n! - Binary Not\n&& - Binary And\n|| - Binary Or\n");
 
     
-        printf("Input operation: c, +, -, \n");
+        printf("Input operation: c, +, -, *, /, !, &&, || \n");
         scanf(" %c",&opera);
     
     int output[32];
     
-    while(opera!='='){
+    while(opera!='=')
+    {
 
-        printf("\n %s %c ",a,opera);
-    
-    switch(opera){
+        printf("\n%s %c ",bin1,opera);
+
+    switch(opera)
+    {
 
         case 'c':
-        bin2[0]='\0';
-        //printf("%d\n",(int)o1);
+        bin2[0]='\0';//To display properly
+        o1=btd(posi,bin1);
+        
         break;
         
         case '+':
@@ -331,11 +364,44 @@ int main() {
         
         printf("Is %s to be treated as positive(1) or negative(0), Enter 1 or 0: ",bin2);
         scanf("%d",&posi);
+        
         o2=btd(posi,bin2);
         
         o1+=o2;
-        dtb(o1,output);
         
+        break;
+        
+        case'-':
+        scanf("%s",bin2);
+        
+        printf("\nIs %s to be treated as positive(1) or negative(0), Enter 1 or 0: ",bin2);
+        scanf("%d",&posi);
+        
+        o2=btd(posi,bin2);
+        
+        o1-=o2;
+        break;
+        
+        case '*':
+        scanf("%s",bin2);
+        
+        printf("\nIs %s to be treated as positive(1) or negative(0), Enter 1 or 0: ",bin2);
+        scanf("%d",&posi);
+        
+        o2=btd(posi,bin2);
+        
+        o1*=o2;
+        break;
+        
+        case '/':
+        scanf("%s",bin2);
+        
+        printf("\nIs %s to be treated as positive(1) or negative(0), Enter 1 or 0: ",bin2);
+        scanf("%d",&posi);
+        
+        o2=btd(posi,bin2);
+        
+        o1/=o2;
         break;
         
         default :
@@ -344,10 +410,17 @@ int main() {
 
     }
 
+        dtb(o1,output);
+
+        printf("\n%s %c %s: ",bin1,opera,bin2);
         
-        printf("\n%s %c %s: ",a,opera,bin2);
+        swap1dinttochar(32,output,bin1);
+        bin1[32]='\0';//to provide a proper position of termination
         dis1diarr(32,output);
-        printf("\nInput Next operation\n");
+        if(bin1[0]=='1'){posi=0;}else{posi=1;}
+        printf(" (%d)",btd(posi,bin1));
+        
+        printf("\n\nInput Next operation: c, +, -, \n");
         scanf(" %c",&opera);
     
     
