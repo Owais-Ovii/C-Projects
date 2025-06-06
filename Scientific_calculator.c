@@ -54,18 +54,24 @@ return out;
 /*
 Fn to convert any binary number into decimal reqs power fn
 ********************************************* */
-int btd(int positive,char a[])//Input is an 1d array that contains the binary values
+int btd(int positive,char input[])//Input is an 1d array that contains the binary values
 {
 int i =0,k=0,sm=0;
 
 int length=0;
-    while((a[i]!= '\0'))
+    while((input[i]!= '\0'))
     {   
-        if(((a[i]=='1')||(a[i]=='0')))//The condition is so because via some user err some chars in the array may be invalid those arent counted
+        if(((input[i]=='1')||(input[i]=='0')))//The condition is so because via some user err some chars in the array may be invalid those arent counted
         {
         length++;//Evaluates the length of binary number
         }
         i++;
+    }
+    char a[length];
+    for(int i=0;i<length;i++){
+        
+        if(input[i]=='1'){a[i]='1';}else if(input[i]=='0'){a[i]='0';}
+        
     }
 //printf("%d",length); //working as it should
 
@@ -247,7 +253,7 @@ void swap1dinttochar(int size,int imatrix[size],char carray[size])
         
         
     }
-    
+   return; 
 }
 
 /* ******************************************** */
@@ -256,7 +262,7 @@ void swap1dinttochar(int size,int imatrix[size],char carray[size])
 int main() {
     int mode;
     double o1,o2;
-    char opera='a',bin1[32],bin2[32];
+    char opera='a',bin1[50],bin2[50];
     int posi;
     
   //  printf("\nEnter operand:\n");
@@ -336,7 +342,9 @@ int main() {
         printf("\nIs %s to be treated as positive(1) or negative(0), Enter 1 or 0: ",bin1);
         scanf("%d",&posi);
         o1= btd(posi,bin1);
-        
+        bin1[32]='\0';
+        bin2[32]='\0';
+
         printf("\n Operations:\nc - Conversion to decimal\n+ - Binary addition\n- - Binary subtraction\n* - Binary multiplication\n! - Binary Not\n&& - Binary And\n|| - Binary Or\n");
 
     
@@ -355,7 +363,11 @@ int main() {
 
         case 'c':
         bin2[0]='\0';//To display properly
+        
+        if(bin1[0]=='1'){posi=0;}else{posi=1;}
+
         o1=btd(posi,bin1);
+        dtb(o1,output);
         
         break;
         
@@ -406,22 +418,20 @@ int main() {
         
         case '!':
         
-        bin2[0]='\0';//bin2 is of no use for this so 
-        bin1[32]='\0';
-        dtb(o1,output);
+        dtb(o1,output);// from ui to deci1 to o1 to output
         for(int i=0;i<32;i++)
         {
             
             output[i]=!output[i];
-            
+
         }
-        printf("\n");
-        //dis1diarr(32,output);
-        
-        swap1dinttochar(32,output,bin1);
-        if(bin1[0]=='1'){posi=0;}else{posi=1;}
-        o1=btd(posi,bin1);//btd fn works for an char input
-        
+
+        swap1dinttochar(32,output,bin2);
+
+        if(bin2[0]=='1'){posi=0;}else{posi=1;}
+        o1=btd(posi,bin2);//btd fn works for an char input
+        bin2[0]='\0';//bin2 is of no use for this so 
+
         break;
         
         default :
@@ -446,17 +456,19 @@ All the operations follow this pattern
 
         printf("\n%s %c %s: ",bin1,opera,bin2);
         
+
         swap1dinttochar(32,output,bin1);
-        bin1[32]='\0';//to provide a proper position of termination
+
+
         dis1diarr(32,output);
+        
         if(bin1[0]=='1'){posi=0;}else{posi=1;}
         printf(" (%d)",btd(posi,bin1));
         
-        dtb
+
         printf("\n\nInput Next operation: c, +, -, \n");
         scanf(" %c",&opera);
-    
-    
+
     }
     
     printf("%lf",o1);
@@ -484,12 +496,12 @@ case 3:
         default :
         printf("Enter valid operation");
 
-    }
+    
         printf("Input operation\n");
         scanf(" %c",&opera);
     
     
-    }
+    
     
     printf("%lf",o1);
 break;
@@ -497,7 +509,7 @@ break;
 
 
 
-
+}
 }//ye switch mode ka bracket
     return 0;
 }
