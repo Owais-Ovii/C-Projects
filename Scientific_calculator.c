@@ -404,13 +404,45 @@ int main() {
         o1/=o2;
         break;
         
+        case '!':
+        
+        bin2[0]='\0';//bin2 is of no use for this so 
+        bin1[32]='\0';
+        dtb(o1,output);
+        for(int i=0;i<32;i++)
+        {
+            
+            output[i]=!output[i];
+            
+        }
+        printf("\n");
+        //dis1diarr(32,output);
+        
+        swap1dinttochar(32,output,bin1);
+        if(bin1[0]=='1'){posi=0;}else{posi=1;}
+        o1=btd(posi,bin1);//btd fn works for an char input
+        
+        break;
+        
         default :
         printf("Enter valid operation");
         break;
 
     }
 
-        dtb(o1,output);
+// The section of code below just 
+        dtb(o1,output);//inputs int value from o1 to output why cause o1 is the variable containg the output of the opeartion
+/*
+All the operations follow this pattern
+1 bin1 = ui and posi ui
+2 o1 = int(posi,bin1)
+3 any operation that is done should return the outcome as an int in o1
+4 output = (bin)o1
+5 print the equation bin1 opera bin2
+6 bin1 =output
+7 terminate bin1
+8 then check wether the value stored in bin1 is posi or negi
+*/
 
         printf("\n%s %c %s: ",bin1,opera,bin2);
         
@@ -420,6 +452,7 @@ int main() {
         if(bin1[0]=='1'){posi=0;}else{posi=1;}
         printf(" (%d)",btd(posi,bin1));
         
+        dtb
         printf("\n\nInput Next operation: c, +, -, \n");
         scanf(" %c",&opera);
     
@@ -444,120 +477,7 @@ case 3:
 
         int Matrix1[r][c];
         printf("\nthe size of matrix = %d\n",sizeof(Matrix1)/sizeof(Matrix1[0][0]));
-    //
 
-    //Initialization of the array
-for (int i = 0; i < r; i++)
-{
-for(int j=0 ; j< c;j++){
-
-Matrix1[i][j]=0;
-
-}
-}
-//
-
-//To input elements in the array and simultaneously show them
-for (int i = 0; i < r; i++)
-{
-for(int j=0;j<c;j++){
-
-for (int k = 0; k < r; k++)
-{
-for(int l=0;l<c;l++){
-if (!l)//if L not equal 0
-{
-printf("| ");}
-
-printf(" %d ",Matrix1[k][l]);
-if (l==c-1)
-{
-printf(" |");}
-
-}printf("\n");}
-
-
-scanf("%d",&Matrix1[i][j]);
-
-}}
-//
-
-//final display of M
-printf("\nThe matrix A = \n");
-for (int k = 0; k < r; k++)
-{
-for(int l=0;l<c;l++){
-if (!l)//if L not equal 0
-{
-printf("| ");}
-
-printf(" %d ",Matrix1[k][l]);
-if (l==c-1)
-{
-printf(" |");}
-
-}printf("\n");}
-//
-
-    while(opera!='='){
-
-        printf("\n A %c ",opera);
-
-        int Matrix2[r][c];
-    //
-
-    //Initialization of the array
-for (int i = 0; i < r; i++)
-{
-for(int j=0 ; j< c;j++){
-
-Matrix2[i][j]=0;
-
-}
-}
-//
-
-//To input elements in the array and simultaneously show them
-for (int i = 0; i < r; i++)
-{
-for(int j=0;j<c;j++){
-
-for (int k = 0; k < r; k++)
-{
-for(int l=0;l<c;l++){
-if (!l)//if L not equal 0
-{
-printf("| ");}
-
-printf(" %d ",Matrix2[k][l]);
-if (l==c-1)
-{
-printf(" |");}
-
-}printf("\n");}
-
-
-scanf("%d",&Matrix2[i][j]);
-
-}}
-//
-
-//final display of M
-printf("\nThe matrix A = \n");
-for (int k = 0; k < r; k++)
-{
-for(int l=0;l<c;l++){
-if (!l)//if L not equal 0
-{
-printf("| ");}
-
-printf(" %d ",Matrix2[k][l]);
-if (l==c-1)
-{
-printf(" |");}
-
-}printf("\n");}
-//    
     switch(opera){
 
         
