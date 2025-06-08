@@ -490,6 +490,37 @@ void matdiff(int rows,int columns,int matrix1[rows][columns],int matrix2[rows][c
 /* *************************************** */
 
 
+/* **********************
+Fn For matrix multiplication A * B
+*/
+int matmul(int rows1,int columns1,int columns2,int mat1[rows1][columns1],int mat2[columns1][columns2],int out[rows1][columns2])
+{
+    int o=0;
+    for(int i =0;i<rows1;i++)//i = konsa row Matrix A ka select kiya hai
+    {
+        
+        for(int j=0;j<columns2;j++)//j = selected column of B matrix
+        {
+        
+            for(int k=0;k<columns1;k++)//k = kitne baar mujhe product ko sum karna hai
+            {
+                
+                o+=(mat1[i][k]*mat2[k][j]);
+                out[i][j]=o;
+            }
+            o=0;
+
+        }
+        
+    }
+    
+    return 0;
+}
+
+
+/* **************** */
+
+
 
 int main() {
     int mode;
@@ -766,8 +797,9 @@ case 3:
 
         int Matrix1[r][c];
         int Matrix2[r][c];
+        int outmatrix[r][c];
 
-        printf("\nthe size of matrix = %d\n",sizeof(Matrix1)/sizeof(Matrix1[0][0]));
+        //printf("\nthe size of matrix = %d\n",sizeof(Matrix1)/sizeof(Matrix1[0][0]));
 
 imatrix(r,c,Matrix1);
 //
@@ -779,24 +811,78 @@ imatrix(r,c,Matrix1);
 printf("\nInput the operator: ");
 scanf(" %c",&opera);
 
-int binaryop=1;//binary operation requiring two operands
+int binaryop=1,r2=0,c2=c;//binary operation requiring two operands
 
 while (opera!='='){
     
-if(opera=='+'||opera=='-'||opera=='*'||opera=='/')
+if(opera=='+'||opera=='-')
 {
+    if(opera=='+'||opera=='-')
+    {
+        
     printf("\n Next matrix:\n");
-    imatrix(r,c,Matrix2);
+    imatrix(r,c,Matrix2);//the user cant input any new vlues of r and c
+        
+    }
+    
+        
+
     
     printf("\n---\t---\t---\t");
     disimat(r,c,Matrix1);
     printf("%c",opera);
-    disimat(r,c,Matrix2);
+    disimat(r2,c2,Matrix2);
     printf("---\t---\t---\t\n");
 
     
 }
-else{binaryop=0;}
+else if(opera=='*'||opera=='/')
+    {
+        
+        for(int i=0;i<r;i++)
+        {
+            
+            for(int j=0;j<c;j++)
+            {
+                
+                outmatrix[i][j]=Matrix1[i][j];
+                
+            }
+            
+        }
+        r2=c;
+    printf("\n For Next matrix of order %d x c, Enter the value of c :\n",r2);
+    scanf("%d",&c2);
+    
+    imatrix(r2,c2,Matrix2);//no of columns in mat a must equal no of rows in mat b
+
+        binaryop=3;
+        
+        printf("\n---\t---\t---\t");
+    disimat(r,c2,outmatrix);
+    printf("%c",opera);
+    disimat(r2,c2,Matrix2);
+    printf("---\t---\t---\t\n");
+    }
+
+
+else if(opera=='D'||opera=='T')
+    {
+        
+        if(r!=c)
+        {
+            
+            printf("\nThe above operation requies a Square Matrix\n");
+            break;
+            
+        }
+        
+        binaryop=0;
+    }
+else{}
+
+
+
 
     switch(opera)
     {
@@ -838,6 +924,14 @@ else{binaryop=0;}
         
         break;
         
+        case '*':
+        
+        matmul(r,c,c2,outmatrix,Matrix2,outmatrix);
+        printf("=");
+        disimat(r,c2,outmatrix);
+        
+        break;
+        
 
     }    
         printf("\nInput next operator: ");
@@ -849,12 +943,20 @@ if(binaryop==1)
 {
 disimat(r,c,Matrix1);
 }
-else
+else if(binaryop==0)
 {
     
     printf("%lf",o1);
     
 }
+else if(binaryop==3)
+{
+    
+    disimat(r,c2,outmatrix);
+    
+}
+
+
 }//ye switch mode ka bracket
     return 0;
 }
