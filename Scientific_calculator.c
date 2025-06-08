@@ -345,13 +345,13 @@ int main() {
         bin1[32]='\0';
         bin2[32]='\0';
 
-        printf("\n Operations:\nc - Conversion to decimal\n+ - Binary addition\n- - Binary subtraction\n* - Binary multiplication\n! - Binary Not\n&& - Binary And\n|| - Binary Or\n");
+        printf("\n Operations:\nc - Conversion to decimal\n+ - Binary addition\n- - Binary subtraction\n* - Binary multiplication\n! - Binary Not\n& - Binary And\n| - Binary Or\n^ - Binary XOR\n");
 
     
-        printf("Input operation: c, +, -, *, /, !, &&, || \n");
+        printf("Input operation: c, +, -, *, /, !, &, |, ^ \n");
         scanf(" %c",&opera);
     
-    int output[32];
+    int output[32],output1[32];// definition of int array is for the decimal to bin fn as it outputs in int array
     
     while(opera!='=')
     {
@@ -434,6 +434,44 @@ int main() {
 
         break;
         
+        case '&':
+        
+        scanf("%s",bin2);
+        
+        printf("\nIs %s to be treated as positive(1) or negative(0), Enter 1 or 0: ",bin2);
+        scanf("%d",&posi);
+        o2=btd(posi,bin2);
+        
+        o1=(int)o1 & (int)o2;
+        
+        break;
+        
+        
+        case '|':
+        
+        scanf("%s",bin2);
+        
+        printf("\nIs %s to be treated as positive(1) or negative(0), Enter 1 or 0: ",bin2);
+        scanf("%d",&posi);
+        o2=btd(posi,bin2);
+        
+        o1=(int)o1 | (int)o2;
+        
+        break;
+        
+        
+        case '^':
+        
+        scanf("%s",bin2);
+        
+        printf("\nIs %s to be treated as positive(1) or negative(0), Enter 1 or 0: ",bin2);
+        scanf("%d",&posi);
+        o2=btd(posi,bin2);
+        
+        o1=(int)o1 ^ (int)o2;
+        
+        break;
+        
         default :
         printf("Enter valid operation");
         break;
@@ -466,12 +504,12 @@ All the operations follow this pattern
         printf(" (%d)",btd(posi,bin1));
         
 
-        printf("\n\nInput Next operation: c, +, -, \n");
+        printf("\n\nInput Next operation: c, +, -, !, or =. \n");
         scanf(" %c",&opera);
 
     }
     
-    printf("%lf",o1);
+    printf("\n%s (%lf)",bin1,o1);
     break;
 
 case 3:    
