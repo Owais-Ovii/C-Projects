@@ -52,12 +52,12 @@ return out;
 
 
 /*
-Fn to convert any binary number into decimal reqs power fn
-********************************************* */
+Fn to convert any binary number stored in a char array into decimal reqs power fn
+********************************************************************************* */
+
 int btd(int positive,char input[])//Input is an 1d array that contains the binary values
 {
 int i =0,k=0,sm=0;
-
 int length=0;
     while((input[i]!= '\0'))
     {   
@@ -65,22 +65,24 @@ int length=0;
         {
         length++;//Evaluates the length of binary number
         }
-        i++;
+        i++;//total chars in arr inc garbage values
     }
     char a[length];
-    for(int i=0;i<length;i++){
+    a[length]='\0';
+
+    for(int j=0;j<i;j++){
         
-        if(input[i]=='1'){a[i]='1';}else if(input[i]=='0'){a[i]='0';}
+        if(input[j]=='1'){a[k]='1';input[k]='1';}else if(input[j]=='0'){a[k]='0';input[k]='0';}else{k--;}k++;
         
     }
-//printf("%d",length); //working as it should
-
+k=0;
+input[length]='\0';
 int b[length];
 //if the number is negative in nature then first take its compliment, eval that as int and then add 1
 if(positive==0)
 {
     
-    for(int j =0;j<i;j++)
+    for(int j =0;j<length;j++)
     {
         
         if(a[j]=='1')
@@ -99,15 +101,15 @@ if(positive==0)
     }
     
 }
-   
 
-for (int j = 0;j<i;j++)//total elements in binary array =i and we have to check all of em irrespective of wether they are valid or not
+
+for (int j = 0;j<length;j++)//total elements in binary array =i and we have to check all of em irrespective of wether they are valid or not
 {
     if (a[i-1-j]=='1')//but to store well check wether the inputs are valid or not i-1 is the last elem of array
     {
     b[k]=1;
     }
-    else if(a[i-1-j]=='0')
+    else if(a[length-1-j]=='0')
     {
         b[k]=0;
     }
@@ -116,7 +118,7 @@ for (int j = 0;j<i;j++)//total elements in binary array =i and we have to check 
 }
 
 
-for(int j=0;j<i;j++){
+for(int j=0;j<length;j++){
     if (b[j])
     {
     sm+=pwer(2,j);
@@ -135,6 +137,7 @@ return sm;
 }
 /* ******************************* */
 
+
 /* 
 Function to display a 1d int array 
 ********************************** */
@@ -151,7 +154,24 @@ printf("%d",matrix[l]);
 
 
 /*
-FnTo convert any decimal number into 32bit binary
+Fn to remove all grabage inputs from 32 bitbinary char array and for proper termination
+************************************************************************************* */
+void binarr(char array[])
+{
+    int k=0;
+    for (int i =0;i<32;i++)
+    {
+        
+        if(array[i]=='1'){array[k]='1';k++;}
+        else if(array[i]=='0'){array[k]='0';k++;}
+        
+    }
+    array[k]='\0';
+}
+/* ********************************************************************************** */
+
+/*
+FnTo convert any decimal number into 32bit binary int array
 ******************************************* */
 
 
@@ -230,7 +250,7 @@ if(posi==0)
 /* **************************************** */
 
 /*
-Fn to input a 1d int array into a 1d char array
+Fn to input a 1d int binary array into a 1d char binary array
 *********************************************** */
 
 void swap1dinttochar(int size,int imatrix[size],char carray[size])
@@ -338,6 +358,7 @@ int main() {
 
         printf("\nEnter a Binary number:\n");
         scanf("%s",bin1);
+        binarr(bin1);
         
         printf("\nIs %s to be treated as positive(1) or negative(0), Enter 1 or 0: ",bin1);
         scanf("%d",&posi);
@@ -373,6 +394,7 @@ int main() {
         
         case '+':
         scanf("%s",bin2);
+        binarr(bin2);
         
         printf("Is %s to be treated as positive(1) or negative(0), Enter 1 or 0: ",bin2);
         scanf("%d",&posi);
@@ -385,6 +407,7 @@ int main() {
         
         case'-':
         scanf("%s",bin2);
+        binarr(bin2);
         
         printf("\nIs %s to be treated as positive(1) or negative(0), Enter 1 or 0: ",bin2);
         scanf("%d",&posi);
@@ -396,7 +419,8 @@ int main() {
         
         case '*':
         scanf("%s",bin2);
-        
+        binarr(bin2);
+            
         printf("\nIs %s to be treated as positive(1) or negative(0), Enter 1 or 0: ",bin2);
         scanf("%d",&posi);
         
@@ -407,6 +431,7 @@ int main() {
         
         case '/':
         scanf("%s",bin2);
+        binarr(bin2);
         
         printf("\nIs %s to be treated as positive(1) or negative(0), Enter 1 or 0: ",bin2);
         scanf("%d",&posi);
@@ -437,6 +462,7 @@ int main() {
         case '&':
         
         scanf("%s",bin2);
+        binarr(bin2);
         
         printf("\nIs %s to be treated as positive(1) or negative(0), Enter 1 or 0: ",bin2);
         scanf("%d",&posi);
@@ -450,7 +476,8 @@ int main() {
         case '|':
         
         scanf("%s",bin2);
-        
+        binarr(bin2);
+              
         printf("\nIs %s to be treated as positive(1) or negative(0), Enter 1 or 0: ",bin2);
         scanf("%d",&posi);
         o2=btd(posi,bin2);
@@ -463,7 +490,8 @@ int main() {
         case '^':
         
         scanf("%s",bin2);
-        
+        binarr(bin2);
+                
         printf("\nIs %s to be treated as positive(1) or negative(0), Enter 1 or 0: ",bin2);
         scanf("%d",&posi);
         o2=btd(posi,bin2);
