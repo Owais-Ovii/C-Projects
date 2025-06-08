@@ -51,6 +51,53 @@ return out;
 /* *********** */
 
 
+
+/* **************************
+Fn for sqrt of any number
+*/
+double sqroot(double x)
+{
+    double out=0;
+    if(x>0){
+    int nooftimesallloospran=0;
+//    printf("\n%d",nooftimesallloospran);
+
+for(int i=0;((out+i)*(out+i))<=x;i++)    
+{
+out=i;  
+nooftimesallloospran++;
+}
+
+for(double i=0.001;((out+i)*(out+i))<=x;i+=0.001)
+{
+    
+    out+=i;
+    nooftimesallloospran++;
+}
+
+for(double i=0.00001;((out+i)*(out+i))<=x;i+=0.00001){
+    
+    out+=i;
+nooftimesallloospran++;
+}
+
+for(double i=0.000000001;((out+i)*(out+i))<=x;i+=0.000000001){
+    
+    out+=i;
+nooftimesallloospran++;
+}
+
+for(double i=0.0000000000001;((out+i)*(out+i))<=x;i+=0.0000000000001){
+    
+    out+=i;
+nooftimesallloospran++;
+}
+}
+//printf("\n%d",nooftimesallloospran);
+return out;
+}
+/* ******************* */
+
 /*
 Fn to convert any binary number stored in a char array into decimal reqs power fn
 ********************************************************************************* */
@@ -279,6 +326,171 @@ void swap1dinttochar(int size,int imatrix[size],char carray[size])
 /* ******************************************** */
 
 
+/*
+Function to initialise and simultaneously show the matrix
+*********************************************************** */
+int imatrix(int r,int c,int matrix[r][c]){//Parameters of the matrix are rows, columns and an output matrix
+//initialise with 0s
+for (int i = 0; i < r; i++)
+{
+for(int j =0; j<c; j++){
+
+matrix[i][j]=0;
+
+}}
+//
+//Simulateneous input and display of array 
+for (int i = 0; i < r; i++)
+{
+for(int j =0; j<c; j++){
+
+    for (int k = 0; k < r; k++)
+    {
+for(int l =0 ; l<c;l++){
+
+if (l==0){  printf("| ");    } 
+
+printf("%d ",matrix[k][l]);
+
+if (l==c-1){    printf("|");   }
+
+
+}  printf("\n");  }
+    
+scanf("%d",&matrix[i][j]);
+}}
+//
+
+// print entire stored matrix
+printf("\n");
+for (int k = 0; k < r; k++)
+    {
+for(int l =0 ; l<c;l++){
+
+    if (l==0)
+    {
+printf("| ");    }
+
+    
+printf("%d ",matrix[k][l]);
+if (l==c-1)
+{
+printf("|");}
+
+
+}  printf("\n");  }
+    return 0;
+}
+/* ********************************* */
+
+
+
+/* 
+Function for determinant of 2x2 3x3 int matrix
+******************************************* */
+int det(int rows,int array[rows][rows])
+{
+int det=0;
+    
+    if(rows==2)
+    {
+        
+    det=array[0][0]*array[1][1]-array[0][1]*array[1][0]; 
+        
+    }
+    
+    else if(rows==3)
+    {
+        
+    det=array[0][0]*array[1][1]*array[2][2]+array[0][1]*array[1][2]*array[2][0]+array[0][2]*array[1][0]*array[2][1]-array[0][2]*array[1][1]*array[2][0]-array[0][1]*array[1][0]*array[2][2]-array[0][0]*array[1][2]*array[2][1];
+        
+    }
+    else
+    {
+        
+        printf("Invalid input");
+        
+    }
+    return det;
+}
+/* ******************************** */
+/* 
+Function to display a matrix
+**************************** */
+void disimat(int rows,int columns,int matrix[][columns])
+{//No of rows and columns of a matrix to print
+        // print entire stored matrix
+printf("\n\n");
+for (int k = 0; k < rows; k++)
+    {
+for(int l =0 ; l<columns;l++){
+
+    if (l==0)
+    {
+printf("| ");    }
+
+    
+printf("%d ",matrix[k][l]);
+if (l==columns-1)
+{
+printf("|");}
+
+
+}  printf("\n");  }
+printf("\n");   
+}
+/* ******************************** */
+
+/* 
+Function for trace of int matrix
+******************************************* */
+int trace(int rows,int array[rows][rows])
+{
+
+int trace=0;
+for(int i =0;i<rows;i++)//total no of elems to add = t no of rows
+{
+    
+ trace+=array[i][i];   
+    
+}
+
+    return trace;
+}
+/* ******************************** */
+
+
+/*
+Fn For sum of two integer matricies
+*********************************** */
+void matsum(int rows,int columns,int matrix1[rows][columns],int matrix2[rows][columns]){//would save the sum in the matrix1 itself
+    
+    for(int i =0;i<rows;i++){
+        
+        for(int j=0; j<columns;j++){
+            
+            matrix1[i][j]+=matrix2[i][j];
+            
+        }}}
+/* ****************************************** */
+
+
+/*
+Fn For difference of two integer matricies
+****************************************** */
+void matdiff(int rows,int columns,int matrix1[rows][columns],int matrix2[rows][columns]){//would save the sum in the matrix1 itself
+    
+    for(int i =0;i<rows;i++){
+        
+        for(int j=0; j<columns;j++){
+            
+            matrix1[i][j]-=matrix2[i][j];
+            
+        }}}
+/* *************************************** */
+
+
+
 int main() {
     int mode;
     double o1,o2;
@@ -288,7 +500,7 @@ int main() {
   //  printf("\nEnter operand:\n");
 //    scanf("%lf",o1);
     
-    printf("Enter mode: \n 1) Decimal \n 2) Binary \n 3)  Matricies \n 4) Exit\n");
+    printf("Enter mode number: \n 1) Decimal \n 2) Binary \n 3) Matricies \n 4) Exit\n");
     scanf("%d",&mode);
         
     switch(mode){
@@ -297,7 +509,7 @@ int main() {
     printf("Input operand:\n");
     scanf(" %lf",&o1);
         
-    printf("\n Operations:\n+ - addition\n/ - division\n- - subtraction\n* - multiplication\n^ - exponentiation\n| - titration\n");
+    printf("\n Operations:\n+ - addition\n/ - division\n- - subtraction\n* - multiplication\n^ - exponentiation\n| - titration\nv - Square root\n");
     
 
     
@@ -307,7 +519,7 @@ int main() {
     
     while(opera!='='){
 
-    printf("\n%lf %c :",o1,opera);
+    printf("\n%lf %c ",o1,opera);
     scanf("%lf",&o2);
     
     switch(opera){
@@ -332,6 +544,7 @@ int main() {
         o1= pwer(o1,o2);
         break;
         
+        
        /* case '|':
         o1= tetr(o1,o2);
         break;  */
@@ -343,7 +556,7 @@ int main() {
 
     }
         printf("%lf\n",o1);
-        printf("Input operation: +, -, *, /, ^, | or = : \n");
+        printf("Input operation: +, -, *, /, ^, v, | or = : \n");
         scanf(" %c",&opera);
     
     
@@ -541,9 +754,7 @@ All the operations follow this pattern
     break;
 
 case 3:    
-          //List of all avalible Operations for Matricies
-    printf("\n Operations:\n+ - addition\n/ - division\n- - subtraction\n* - multiplication\n^ - exponentiation\n| - titration\n");
-    //
+
     
     //For decleration of any user defined Array total number of rows and columns are needed
         printf("For a matrix of size r x c, Enter value of r:\n");
@@ -554,27 +765,95 @@ case 3:
         scanf("%d",&c);
 
         int Matrix1[r][c];
+        int Matrix2[r][c];
+
         printf("\nthe size of matrix = %d\n",sizeof(Matrix1)/sizeof(Matrix1[0][0]));
 
-    switch(opera){
+imatrix(r,c,Matrix1);
+//
 
-        
+          //List of all avalible Operations for Matricies
+    printf("\n Operations:\n+ - addition\n/ - division\n- - subtraction\n* - multiplication\nD - Determinant\nT - Trace\n");
+    //
+
+printf("\nInput the operator: ");
+scanf(" %c",&opera);
+
+int binaryop=1;//binary operation requiring two operands
+
+while (opera!='='){
+    
+if(opera=='+'||opera=='-'||opera=='*'||opera=='/')
+{
+    printf("\n Next matrix:\n");
+    imatrix(r,c,Matrix2);
+    
+    printf("\n---\t---\t---\t");
+    disimat(r,c,Matrix1);
+    printf("%c",opera);
+    disimat(r,c,Matrix2);
+    printf("---\t---\t---\t\n");
+
+    
+}
+else{binaryop=0;}
+
+    switch(opera)
+    {
+
         default :
-        printf("Enter valid operation");
+        printf("\nEnter valid operation\n");
+        break;
+        
+        case 'D':
+        
+        o1= det(r,Matrix1);
+        printf("\nDet of");
+        disimat(r,c,Matrix1);
+        printf("= %lf\n",o1);
 
-    
-        printf("Input operation\n");
+        break;
+        
+        case 'T':
+        
+        o1= trace(r,Matrix1);
+        printf("\nTrace of");
+        disimat(r,c,Matrix1);
+        printf("= %lf\n",o1);
+
+        break;
+        
+        case '+':
+        
+        matsum(r,c,Matrix1,Matrix2);//saves result in Matrix1
+        printf("=");
+        disimat(r,c,Matrix1);
+        
+        break;
+        
+        case '-':
+        matdiff(r,c,Matrix1,Matrix2);
+        printf("=");
+        disimat(r,c,Matrix1);
+        
+        break;
+        
+
+    }    
+        printf("\nInput next operator: ");
         scanf(" %c",&opera);
-    
-    
-    
+
+}
+
+if(binaryop==1)
+{
+disimat(r,c,Matrix1);
+}
+else
+{
     
     printf("%lf",o1);
-break;
-
-
-
-
+    
 }
 }//ye switch mode ka bracket
     return 0;
