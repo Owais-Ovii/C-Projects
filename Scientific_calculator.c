@@ -493,7 +493,7 @@ void matdiff(int rows,int columns,int matrix1[rows][columns],int matrix2[rows][c
 /* **********************
 Fn For matrix multiplication A * B
 */
-int matmul(int rows1,int columns1,int columns2,int mat1[rows1][columns1],int mat2[columns1][columns2],int out[rows1][columns2])
+int matmul(int rows1,int columns1,int mat1[rows1][columns1], int columns2,int mat2[columns1][columns2],int out[rows1][columns2])
 {
     int o=0;
     for(int i =0;i<rows1;i++)//i = konsa row Matrix A ka select kiya hai
@@ -501,14 +501,18 @@ int matmul(int rows1,int columns1,int columns2,int mat1[rows1][columns1],int mat
         
         for(int j=0;j<columns2;j++)//j = selected column of B matrix
         {
+            
+        o=0;
+                        
         
             for(int k=0;k<columns1;k++)//k = kitne baar mujhe product ko sum karna hai
             {
                 
                 o+=(mat1[i][k]*mat2[k][j]);
-                out[i][j]=o;
             }
-            o=0;
+            
+            out[i][j]=o;
+                            
 
         }
         
