@@ -175,7 +175,7 @@ for (int i =0;i<32;i++)
 input[i]='0';    }else{input[i]='1';}
     
 }
-for(int i =k-1;i>=0;i--)\
+for(int i =k-1;i>=0;i--)
 {
     
     input[32-k+i]=a[i];
@@ -196,7 +196,7 @@ for(int i =0;i<=32;i++)
 if(positive==0)
 {
     
-    for(int j =0;j<k;j++)
+    for(int j =0;j<32;j++)
     {
         
         if(a[j]=='1')
@@ -930,7 +930,7 @@ int main() {
 
 // The section of code below just 
         dtb(o1,output);//inputs int value from o1 to output why cause o1 is the variable containg the output of the opeartion
-       // printf("\nTest:");
+     //   printf("\nTest: %lf",o1);
       //  dis1diarr(32,output);
 /*
 All the operations follow this pattern
@@ -956,7 +956,7 @@ All the operations follow this pattern
         printf(" (%d)",btd(posi,bin1));
         
 
-        printf("\n\nInput Next operation: c, +, -, !, or =. \n");
+        printf("\n\nInput Next operation: c, +, -, !, &, |, ^ or =. \n");
         scanf(" %c",&opera);
 
     }
@@ -969,7 +969,7 @@ case 3:
     
     //For decleration of any user defined Array total number of rows and columns are needed
         printf("For a matrix of size r x c, Enter value of r:\n");
-        int r,c;
+        int r,c,r2,c2,ro,co;
         scanf("%d",&r);
 
         printf("Enter value of c:\n");
@@ -979,96 +979,27 @@ case 3:
         int Matrix2[r][c];
         int outmatrix[r][c];
 
-        //printf("\nthe size of matrix = %d\n",sizeof(Matrix1)/sizeof(Matrix1[0][0]));
-
 imatrix(r,c,Matrix1);
 //
 
           //List of all avalible Operations for Matricies
-    printf("\n Operations:\n+ - addition\n/ - division\n- - subtraction\n* - multiplication\nD - Determinant\nT - Trace\n");
+    printf("\n Operations:\n+ - addition\n- - subtraction\n* - multiplication\nD - Determinant\nT - Trace\n");
     //
 
-printf("\nInput the operator: ");
+printf("\nInput the operation: +, -, *, D, T ");
 scanf(" %c",&opera);
 
-int binaryop=1,r2=0,c2=c;//binary operation requiring two operands
 
-while (opera!='='){
-    
-if(opera=='+'||opera=='-')
+
+while(opera!='=')
 {
-    if(opera=='+'||opera=='-')
-    {
-        
-    printf("\n Next matrix:\n");
-    imatrix(r,c,Matrix2);//the user cant input any new vlues of r and c
-        
-    }
-    
-        
-
-    
-    printf("\n---\t---\t---\t");
-    disimat(r,c,Matrix1);
-    printf("%c",opera);
-    disimat(r2,c2,Matrix2);
-    printf("---\t---\t---\t\n");
-
-    
-}
-else if(opera=='*'||opera=='/')
-    {
-        
-        for(int i=0;i<r;i++)
-        {
-            
-            for(int j=0;j<c;j++)
-            {
-                
-                outmatrix[i][j]=Matrix1[i][j];
-                
-            }
-            
-        }
-        r2=c;
-    printf("\n For Next matrix of order %d x c, Enter the value of c :\n",r2);
-    scanf("%d",&c2);
-    
-    imatrix(r2,c2,Matrix2);//no of columns in mat a must equal no of rows in mat b
-
-        binaryop=3;
-        
-        printf("\n---\t---\t---\t");
-    disimat(r,c2,outmatrix);
-    printf("%c",opera);
-    disimat(r2,c2,Matrix2);
-    printf("---\t---\t---\t\n");
-    }
-
-
-else if(opera=='D'||opera=='T')
-    {
-        
-        if(r!=c)
-        {
-            
-            printf("\nThe above operation requies a Square Matrix\n");
-            break;
-            
-        }
-        
-        binaryop=0;
-    }
-else{}
-
-
 
 
     switch(opera)
     {
 
         default :
-        printf("\nEnter valid operation\n");
+        printf("\nEnter a valid operation: \n");
         break;
         
         case 'D':
@@ -1091,13 +1022,32 @@ else{}
         
         case '+':
         
-        matsum(r,c,Matrix1,Matrix2);//saves result in Matrix1
+        r2=r;c2=c;
+        imatrix(r2,c2,Matrix2);
+    
+    printf("\n---\t---\t---\t");
+    disimat(r,c,Matrix1);
+    printf("%c",opera);
+    disimat(r2,c2,Matrix2);
+    printf("---\t---\t---\t\n");
+    
+        matsum(r,c,Matrix1,Matrix2);//vaapas travi ye result in Matrix1
         printf("=");
         disimat(r,c,Matrix1);
         
         break;
         
         case '-':
+        
+        r2=r;c2=c;
+        imatrix(r2,c2,Matrix2);
+    
+    printf("\n---\t---\t---\t");
+    disimat(r,c,Matrix1);
+    printf("%c",opera);
+    disimat(r2,c2,Matrix2);
+    printf("---\t---\t---\t\n");
+        
         matdiff(r,c,Matrix1,Matrix2);
         printf("=");
         disimat(r,c,Matrix1);
@@ -1106,35 +1056,35 @@ else{}
         
         case '*':
         
-        matmul(r,c,outmatrix,c2,Matrix2,outmatrix);
-        printf("=");
-        disimat(r,c2,outmatrix);
+    r2=c;    
+    printf("\n For Next matrix of order %d x c, Enter the value of c :\n",r2);
+    scanf("%d",&c2);
+    
+    imatrix(r2,c2,Matrix2);
+    
+    printf("\n---\t---\t---\t");
+    disimat(r,c,Matrix1);
+    printf("%c",opera);
+    disimat(r2,c2,Matrix2);
+    printf("---\t---\t---\t\n");
+
+        matmul(r,c,Matrix1,c2,Matrix2,Matrix1);
+        c=c2;
         
+
+        
+        printf("=");
+        disimat(r,c,Matrix1);
+
         break;
         
 
     }    
-        printf("\nInput next operator: ");
+printf("\nInput the next operation: +, -, *, D, T or =");
         scanf(" %c",&opera);
 
 }
 
-if(binaryop==1)
-{
-disimat(r,c,Matrix1);
-}
-else if(binaryop==0)
-{
-    
-    printf("%lf",o1);
-    
-}
-else if(binaryop==3)
-{
-    
-    disimat(r,c2,outmatrix);
-    
-}
 
 
 
