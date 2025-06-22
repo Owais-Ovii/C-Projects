@@ -50,6 +50,57 @@ return out;
 }
 /* *********** */
 
+/*
+Func for power of any number
+**************************** */
+double upow(double base, char power[])//terminate karna padayga with \0 end of array
+{
+ int lengofint=0,lengofdeci=0,encdecimal=0,k=0;
+ char array[100];
+ for(int i=0;power[i]!='\0';i++)
+ {
+     
+     if(power[i]=='.'){encdecimal=1;}
+     else if(encdecimal==0){lengofint++;array[k]=power[i];k++;}
+     else{lengofdeci++;array[k]=power[i];k++;}
+ }
+ 
+ array[lengofdeci+lengofint]='\0';
+// printf("\n array strores %s\n",array);
+ 
+ int power1=0,temp=0;
+ for(int i =0;i<lengofdeci+lengofint;i++)
+ {
+     temp=(int)array[i]-48;
+     //printf("\ntemp = %d\n",temp);
+     power1+=temp*pwer(10,lengofdeci+lengofint-i-1);//power would after this loop store how many times the subseq loop runs
+     //printf("\npower1 = %d\n",power1);
+ }
+ 
+temp=pwer(10,lengofdeci);//= a^1/1000...
+
+double number=0.0;
+
+while(pwer(number+1,temp)<base){  number+=1;  }
+while(pwer(number+0.001,temp)<base){  number+=0.001;  }
+while(pwer(number+0.00001,temp)<base){  number+=0.00001;  }
+while(pwer(number+0.0000001,temp)<base){  number+=0.0000001;  }
+while(pwer(number+0.000000001,temp)<base){  number+=0.000000001;  }
+
+while(pwer(number+0.00000000001,temp)<base){  number+=0.00000000001;  }
+
+
+double output=1;
+for(int i=0;i<power1;i++)
+{
+    
+    output*=number;
+    
+}
+return output;
+}
+
+/* *************************** */
 
 
 /* **************************
@@ -106,30 +157,46 @@ int btd(int positive,char input[])//Input is an 1d array that contains the binar
 {
 int i =0,k=0,sm=0;
 int length=0;
-    while((input[i]!= '\0'))
-    {   
-        if(((input[i]=='1')||(input[i]=='0')))//The condition is so because via some user err some chars in the array may be invalid those arent counted
-        {
-        length++;//Evaluates the length of binary number
-        }
-        i++;//total chars in arr inc garbage values
-    }
-    char a[length];
-    a[length]='\0';
 
-    for(int j=0;j<i;j++){
+
+        char a[32];
+    for(int j=0;input[j]!='\0';j++){
         
-        if(input[j]=='1'){a[k]='1';input[k]='1';}else if(input[j]=='0'){a[k]='0';input[k]='0';}else{k--;}k++;
+        if(input[j]=='1'){a[k]='1';input[k]='1';}else if(input[j]=='0'){a[k]='0';input[k]='0';}else{k--;}k++;//ab k mai len hogi
         
     }
-k=0;
-input[length]='\0';
-int b[length];
+
+    a[k]='\0';
+
+
+for (int i =0;i<32;i++)
+{
+    if (positive == 1){
+input[i]='0';    }else{input[i]='1';}
+    
+}
+for(int i =k-1;i>=0;i--)\
+{
+    
+    input[32-k+i]=a[i];
+    
+}
+input[32]='\0';
+//printf("\n\ntest %s\n",input);
+
+
+for(int i =0;i<=32;i++)
+{
+    
+    a[i]=input[i];
+    
+}
+
 //if the number is negative in nature then first take its compliment, eval that as int and then add 1
 if(positive==0)
 {
     
-    for(int j =0;j<length;j++)
+    for(int j =0;j<k;j++)
     {
         
         if(a[j]=='1')
@@ -148,31 +215,17 @@ if(positive==0)
     }
     
 }
-
-
-for (int j = 0;j<length;j++)//total elements in binary array =i and we have to check all of em irrespective of wether they are valid or not
-{
-    if (a[i-1-j]=='1')//but to store well check wether the inputs are valid or not i-1 is the last elem of array
-    {
-    b[k]=1;
-    }
-    else if(a[length-1-j]=='0')
-    {
-        b[k]=0;
-    }
-    else{k--;}//now if the value stored in bin array were to be invalid then the cell of B in which we r storing shouldnt change
+k=0;
+for(int i=31;i>=0;i--){
+    
+    if(a[i]=='1'){
+    sm+=pwer(2,k);}
     k++;
 }
 
 
-for(int j=0;j<length;j++){
-    if (b[j])
-    {
-    sm+=pwer(2,j);
-    }
 
 
-}
 if(positive==0)
 {
     
@@ -206,7 +259,7 @@ Fn to remove all grabage inputs from 32 bitbinary char array and for proper term
 void binarr(char array[])
 {
     int k=0;
-    for (int i =0;i<32;i++)
+    for (int i =0;i<32&&(array[i]!='\0');i++)
     {
         
         if(array[i]=='1'){array[k]='1';k++;}
@@ -222,7 +275,98 @@ FnTo convert any decimal number into 32bit binary int array
 ******************************************* */
 
 
-int dtb(int decimal, int binary[32])// a decimal input and the array in which the binary would be returned
+int dtb(double decimal, int binary[32])// a decimal input and the array in which the binary would be returned
+{
+    
+    int posi=0,remaindar=0,number=0,i=0;
+    if(decimal>=0)
+    {
+        
+        posi=1;
+        number=decimal;
+        
+    }
+    else
+    {
+        
+        number=-decimal;
+        number-=1;
+        
+    }
+    
+for(int j =0;j<32;j++)
+{
+    
+    binary[j]=0;
+    
+}
+
+int binary1[32];
+for(int j =0;j<32;j++)
+{
+    
+    binary1[j]=0;
+    
+}
+    while(number!=0)
+    {
+        
+        remaindar=number%2;
+        binary1[i]=remaindar;
+        number=(int) number/2;
+        
+        
+        i++;
+    }
+   // printf("\nTest binary1 = ");
+   // dis1diarr(32,binary1);
+    
+
+
+//Now reversing the array
+int temp;
+for(int j=0;j<16;j++)
+{
+    
+    temp=binary1[31-j];
+    binary1[31-j]=binary1[j];
+    binary1[j]=temp;
+    
+}
+
+   // printf("\nTest binary1 = ");
+   // dis1diarr(32,binary1);
+
+for(int j=0;j<32;j++)
+{
+    
+    binary[j]=binary1[j];
+    
+}
+
+if(posi==0)
+{
+    
+    for(int i=0;i<32;i++)
+    {
+        
+        binary[i]=!binary[i];
+        
+    }
+    
+}
+
+
+}
+/* **************************************** */
+
+
+/*
+FnTo convert any decimal number into 32bit binary int array
+******************************************* */
+
+
+int dtbc(int decimal, char binary[32])// a decimal input and the array in which the binary would be returned
 {
     
     int posi=0,remaindar,number,i=0;
@@ -244,7 +388,7 @@ int dtb(int decimal, int binary[32])// a decimal input and the array in which th
 for(int i =0;i<32;i++)
 {
     
-    binary[i]=-2147483648;
+    binary[i]='\0';
     
 }
 
@@ -253,7 +397,9 @@ for(int i =0;i<32;i++)
     {
         
         remaindar=number%2;
-        binary[i]=remaindar;
+        if(remaindar==1){        binary[i]='1';
+}else{        binary[i]='0';
+}
         number=(int) number/2;
         
         
@@ -263,7 +409,7 @@ for(int i =0;i<32;i++)
 
 
 //Now reversing the array
-int temp;
+char temp;
 for(int j=0;j<16;j++)
 {
     
@@ -273,10 +419,10 @@ for(int j=0;j<16;j++)
     
 }
 
-for(int j=0;binary[j]==-2147483648;j++)
+for(int j=0;binary[j]=='\0';j++)
 {
     
-    binary[j]=0;
+    binary[j]='0';
     
 }
 
@@ -285,8 +431,8 @@ if(posi==0)
     
     for(int i=0;i<32;i++)
     {
-        
-        binary[i]=!binary[i];
+        if(binary[i]=='1'){binary[i]='0';}else{binary[i]='1';}
+        //binary[i]=!binary[i];
         
     }
     
@@ -295,6 +441,7 @@ if(posi==0)
 
 }
 /* **************************************** */
+
 
 /*
 Fn to input a 1d int binary array into a 1d char binary array
@@ -320,7 +467,6 @@ void swap1dinttochar(int size,int imatrix[size],char carray[size])
         
         
     }
-   return; 
 }
 
 /* ******************************************** */
@@ -544,18 +690,19 @@ int main() {
     printf("Input operand:\n");
     scanf(" %lf",&o1);
         
-    printf("\n Operations:\n+ - addition\n/ - division\n- - subtraction\n* - multiplication\n^ - exponentiation\n| - titration\nv - Square root\n");
+    printf("\n Operations:\n+ - addition\n/ - division\n- - subtraction\n* - multiplication\n^ - exponentiation\nr - raised to a float\n");
     
 
     
-    printf("Input operation: +, -, *, /, ^, |\n");
+    printf("Input operation: +, -, *, /, ^, r\n");
     scanf(" %c",&opera);
     
     
     while(opera!='='){
 
     printf("\n%lf %c ",o1,opera);
-    scanf("%lf",&o2);
+    if(opera!='r'){
+    scanf("%lf",&o2);}
     
     switch(opera){
         
@@ -579,6 +726,12 @@ int main() {
         o1= pwer(o1,o2);
         break;
         
+        case 'r':
+        char power[100];
+
+        scanf(" %s",power);
+        o1=upow(o1,power);
+        break;
         
        /* case '|':
         o1= tetr(o1,o2);
@@ -591,7 +744,7 @@ int main() {
 
     }
         printf("%lf\n",o1);
-        printf("Input operation: +, -, *, /, ^, v, | or = : \n");
+        printf("Input operation: +, -, *, /, ^, r or = : \n");
         scanf(" %c",&opera);
     
     
@@ -605,12 +758,16 @@ int main() {
 
 
         printf("\nEnter a Binary number:\n");
-        scanf("%s",bin1);
+        scanf(" %s",bin1);
         binarr(bin1);
         
         printf("\nIs %s to be treated as positive(1) or negative(0), Enter 1 or 0: ",bin1);
         scanf("%d",&posi);
         o1= btd(posi,bin1);
+       // printf("\n\ntETS: %s",bin1);
+       // dtbc(o1,bin1);
+         //       printf("\n\ntETS: %s",bin1);
+
         bin1[32]='\0';
         bin2[32]='\0';
 
@@ -633,36 +790,48 @@ int main() {
         case 'c':
         bin2[0]='\0';//To display properly
         
+        
         if(bin1[0]=='1'){posi=0;}else{posi=1;}
-
+         // printf("\n test: bin1 = %s",bin1);
         o1=btd(posi,bin1);
+    
+                //printf("\n test: o1 = %lf",o1);
+
         dtb(o1,output);
+       // printf("\n test: output array = ");
+        //dis1diarr(32,output);
+        
         
         break;
         
         case '+':
-        scanf("%s",bin2);
+        scanf(" %s",bin2);
         binarr(bin2);
         
         printf("Is %s to be treated as positive(1) or negative(0), Enter 1 or 0: ",bin2);
-        scanf("%d",&posi);
+        scanf(" %d",&posi);
         
         o2=btd(posi,bin2);
+        //dtbc(o2,bin2);
         
         o1+=o2;
         
         break;
         
         case'-':
-        scanf("%s",bin2);
+        scanf(" %s",bin2);
         binarr(bin2);
         
         printf("\nIs %s to be treated as positive(1) or negative(0), Enter 1 or 0: ",bin2);
-        scanf("%d",&posi);
-        
+        scanf(" %d",&posi);
         o2=btd(posi,bin2);
+       // printf("\nTest o1 = %lf o2 = %lf",o1,o2);
         
+                //dtbc(o2,bin2);
+
         o1-=o2;
+              //  printf("\nTest o1 = %lf o2 = %lf",o1,o2);
+
         break;
         
         case '*':
@@ -673,7 +842,8 @@ int main() {
         scanf("%d",&posi);
         
         o2=btd(posi,bin2);
-        
+            //dtbc(o2,bin2);
+    
         o1*=o2;
         break;
         
@@ -685,7 +855,8 @@ int main() {
         scanf("%d",&posi);
         
         o2=btd(posi,bin2);
-        
+                //dtbc(o2,bin2);
+
         o1/=o2;
         break;
         
@@ -715,7 +886,8 @@ int main() {
         printf("\nIs %s to be treated as positive(1) or negative(0), Enter 1 or 0: ",bin2);
         scanf("%d",&posi);
         o2=btd(posi,bin2);
-        
+                //dtbc(o2,bin2);
+
         o1=(int)o1 & (int)o2;
         
         break;
@@ -729,7 +901,8 @@ int main() {
         printf("\nIs %s to be treated as positive(1) or negative(0), Enter 1 or 0: ",bin2);
         scanf("%d",&posi);
         o2=btd(posi,bin2);
-        
+                //dtbc(o2,bin2);
+
         o1=(int)o1 | (int)o2;
         
         break;
@@ -743,7 +916,8 @@ int main() {
         printf("\nIs %s to be treated as positive(1) or negative(0), Enter 1 or 0: ",bin2);
         scanf("%d",&posi);
         o2=btd(posi,bin2);
-        
+                //dtbc(o2,bin2);
+
         o1=(int)o1 ^ (int)o2;
         
         break;
@@ -756,6 +930,8 @@ int main() {
 
 // The section of code below just 
         dtb(o1,output);//inputs int value from o1 to output why cause o1 is the variable containg the output of the opeartion
+       // printf("\nTest:");
+      //  dis1diarr(32,output);
 /*
 All the operations follow this pattern
 1 bin1 = ui and posi ui
@@ -768,7 +944,7 @@ All the operations follow this pattern
 8 then check wether the value stored in bin1 is posi or negi
 */
 
-        printf("\n%s %c %s: ",bin1,opera,bin2);
+        printf("\n%s %c %s: \n",bin1,opera,bin2);
         
 
         swap1dinttochar(32,output,bin1);
@@ -930,7 +1106,7 @@ else{}
         
         case '*':
         
-        matmul(r,c,c2,outmatrix,Matrix2,outmatrix);
+        matmul(r,c,outmatrix,c2,Matrix2,outmatrix);
         printf("=");
         disimat(r,c2,outmatrix);
         
@@ -961,6 +1137,11 @@ else if(binaryop==3)
 }
 
 
-}//ye switch mode ka bracket
+
+        
+        
+        
+        
+    }//ye switch mode ka bracket
     return 0;
 }
